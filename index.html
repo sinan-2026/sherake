@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شركتي - نظام الحاويات والاستيراد</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial;background:#0f172a;color:#fff;padding:15px;margin:0}
+.top{max-width:1050px;margin:auto}
+h1{text-align:center}
+.cards{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+.card{background:#1e293b;flex:1;min-width:150px;padding:15px;border-radius:12px;text-align:center}
+.card b{font-size:22px;display:block;color:#22c55e}
+.card b.red{color:#ef4444}
+.box{background:#1e293b;padding:18px;border-radius:15px;margin-bottom:15px}
+input,select{width:100%;padding:11px;margin:5px 0;border-radius:8px;border:none;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{background:#22c55e;color:#fff;padding:13px;width:100%;border:none;border-radius:10px;font-size:17px;cursor:pointer;font-weight:bold;margin-top:5px}
+button.blue{background:#0ea5e9}
+button.orange{background:#f59e0b;color:#000}
+button.small{padding:6px 10px;width:auto;font-size:13px;margin:2px}
+button.del{background:#ef4444}
+button.edit{background:#f59e0b;color:#000}
+table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:12px;overflow:hidden}
+th,td{padding:10px;text-align:center;border-bottom:1px solid #334155;font-size:14px}
+th{background:#0ea5e9}
+.search{background:#fff;color:#000}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#000} .no-print{display:none!important} .box,.card{color:#000;background:#fff;border:1px solid #000} th{background:#ddd;color:#000} td{color:#000}}
+</style>
+</head>
+<body>
+<div class="top">
+<h1>📦 شركتي - نظام الحاويات والاستيراد</h1>
+
+<div class="cards">
+<div class="card">عدد الحاويات<b id="cCount">0</b></div>
+<div class="card">مجموع المصاريف<b id="cCost">0$</b></div>
+<div class="card">الربح المتوقع<b id="cProfit">0$</b></div>
+<div class="card">مجموع الديون على الزبائن<b class="red" id="cDebt">0$</b></div>
+</div>
+
+<div class="box no-print">
+<h3 id="formTitle">➕ إضافة حاوية جديدة</h3>
+<div class="grid">
+<div><label>رقم الحاوية</label><input id="cont" placeholder="MSCU123456"></div>
+<div><label>اسم المورد</label><input id="supplier" placeholder="اسم الشركة"></div>
+<div><label>الدولة</label><select id="country"><option>الصين</option><option>تركيا</option><option>الهند</option><option>دبي</option><option>غيرها</option></select></div>
+<div><label>نوع البضاعة</label><input id="goods" placeholder="مثلا: ملابس"></div>
+<div><label>سعر البضاعة $</label><input id="price" type="number" value="0"></div>
+<div><label>شحن $</label><input id="ship" type="number" value="0"></div>
+<div><label>كمرك $</label><input id="custom" type="number" value="0"></div>
+<div><label>تخليص ومصاريف $</label><input id="other" type="number" value="0"></div>
+<div><label>عدد القطع</label><input id="qty" type="number" value="1"></div>
+<div><label>سعر بيع القطعة $</label><input id="sell" type="number" value="0"></div>
+<div><label>تاريخ الوصول</label><input id="date" type="date"></div>
+<div><label>حالة الحاوية</label><select id="status"><option>بالطريق 🚢</option><option>وصلت ✅</option><option>انباعت 💰</option></select></div>
+</div>
+<button id="saveBtn" onclick="saveContainer()">💾 حفظ الحاوية</button>
+<button class="blue no-print" id="cancelEdit" onclick="cancelEdit()" style="display:none">❌ الغاء التعديل</button>
+<p id="calcPreview" style="background:#0ea5e9;padding:10px;border-radius:8px;margin-top:10px">اكتب الارقام حتى تشوف الحساب هنا...</p>
+</div>
+
+<div class="box">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h3>📋 كل الحاويات</h3>
+<button class="blue small no-print" onclick="window.print()">🖨️ طباعة التقرير</button>
+</div>
+<input class="search no-print" id="search" placeholder="🔍 ابحث برقم الحاوية او المورد..." onkeyup="render()">
+<div style="overflow-x:auto;margin-top:10px">
+<table>
+<thead><tr><th>الحاوية</th><th>المورد / الدولة</th><th>البضاعة</th><th>الكلفة الكلية</th><th>كلفة القطعة</th><th>الربح الكلي</th><th>الحالة</th><th class="no-print">اجراء</th></tr></thead>
+<tbody id="list"></tbody>
+</table>
+</div>
+</div>
+
+<div class="box no-print">
+<h3>💰 الزبائن والديون</h3>
+<div class="grid">
+<div><label>اسم الزبون</label><input id="custName" placeholder="اسم الزبون"></div>
+<div><label>شكد اخذ بضاعة $ - المبلغ الكلي</label><input id="custTotal" type="number" value="0"></div>
+<div><label>شكد دفع $</label><input id="custPaid" type="number" value="0"></div>
+<div><label>ملاحظة</label><input id="custNote" placeholder="مثلا: ملابس - دفعة اولى"></div>
+</div>
+<button class="orange" onclick="addCustomer()">➕ اضافة زبون / دين</button>
+<div style="overflow-x:auto;margin-top:10px">
+<table>
+<thead><tr><th>الزبون</th><th>المبلغ الكلي</th><th>المدفوع</th><th>الباقي عليه</th><th>ملاحظة</th><th>اجراء</th></tr></thead>
+<tbody id="custList"></tbody>
+</table>
+</div>
+</div>
+
+</div>
+<script>
+let data = JSON.parse(localStorage.getItem('sherka') || '[]');
+let customers = JSON.parse(localStorage.getItem('sherka_cust') || '[]');
+let editIndex = -1;
+function calcVals(){
+let p=+document.getElementById('price').value||0;
+let s=+document.getElementById('ship').value||0;
+let c=+document.getElementById('custom').value||0;
+let o=+document.getElementById('other').value||0;
+let q=+document.getElementById('qty').value||1;
+let sell=+document.getElementById('sell').value||0;
+let total=p+s+c+o;
+let per=total/q;
+let profit=(sell-per)*q;
+document.getElementById('calcPreview').innerHTML='مجموع الكلفة: $'+total+' | كلفة القطعة: $'+per.toFixed(2)+' | الربح الكلي: $'+profit.toFixed(2);
+return {total,per,profit};
+}
+['price','ship','custom','other','qty','sell'].forEach(id=>{document.getElementById(id).addEventListener('input',calcVals)});
+
+function saveContainer(){
+let item={cont:document.getElementById('cont').value||'بدون رقم',supplier:document.getElementById('supplier').value||'-',country:document.getElementById('country').value,goods:document.getElementById('goods').value||'-',qty:document.getElementById('qty').value,sell:document.getElementById('sell').value,date:document.getElementById('date').value||'-',status:document.getElementById('status').value,...calcVals()};
+if(editIndex>=0){data[editIndex]=item;editIndex=-1;document.getElementById('formTitle').innerText='➕ إضافة حاوية جديدة';document.getElementById('saveBtn').innerText='💾 حفظ الحاوية';document.getElementById('cancelEdit').style.display='none';alert('تم تعديل الحاوية ✅');}
+else{data.unshift(item);alert('تم حفظ الحاوية ✅');}
+localStorage.setItem('sherka',JSON.stringify(data));
+clearForm();render();
+}
+function clearForm(){['cont','supplier','goods','price','ship','custom','other','qty','sell','date'].forEach(id=>{document.getElementById(id).value=id=='qty'?1:''});calcVals();}
+function cancelEdit(){editIndex=-1;clearForm();document.getElementById('formTitle').innerText='➕ إضافة حاوية جديدة';document.getElementById('saveBtn').innerText='💾 حفظ الحاوية';document.getElementById('cancelEdit').style.display='none';}
+function editCont(i){
+let d=data[i];editIndex=i;
+document.getElementById('cont').value=d.cont;document.getElementById('supplier').value=d.supplier;document.getElementById('country').value=d.country;document.getElementById('goods').value=d.goods;document.getElementById('date').value=d.date=='-'?'':d.date;document.getElementById('status').value=d.status;
+// نرجع الارقام الاصلية من الكلفة - نحسبها تقريبيا
+document.getElementById('qty').value=d.qty;document.getElementById('sell').value=d.sell;
+// للبساطة: نطلب من المستخدم يعيد كتابة الاسعار الاربعة اذا يريد تعديل دقيق
+document.getElementById('formTitle').innerText='✏️ تعديل حاوية: '+d.cont;
+document.getElementById('saveBtn').innerText='💾 حفظ التعديل';
+document.getElementById('cancelEdit').style.display='block';
+window.scrollTo({top:0,behavior:'smooth'});
+alert('هسه عدّل الارقام فوق ودوس حفظ التعديل. ملاحظة: عيد كتابة اسعار البضاعة والشحن والكمرك والتخليص لانها كانت محسوبة.');
+}
+function del(i){if(confirm('متأكد تحذف؟')){data.splice(i,1);localStorage.setItem('sherka',JSON.stringify(data));render();}}
+
+function addCustomer(){
+let name=document.getElementById('custName').value||'بدون اسم';
+let total=+document.getElementById('custTotal').value||0;
+let paid=+document.getElementById('custPaid').value||0;
+let note=document.getElementById('custNote').value||'-';
+customers.unshift({name,total,paid,remain:total-paid,note});
+localStorage.setItem('sherka_cust',JSON.stringify(customers));
+document.getElementById('custName').value='';document.getElementById('custTotal').value=0;document.getElementById('custPaid').value=0;document.getElementById('custNote').value='';
+render();
+}
+function delCust(i){if(confirm('تحذف هذا الزبون؟')){customers.splice(i,1);localStorage.setItem('sherka_cust',JSON.stringify(customers));render();}}
+function payAll(i){customers[i].paid=customers[i].total;customers[i].remain=0;localStorage.setItem('sherka_cust',JSON.stringify(customers));render();}
+
+function render(){
+let q=document.getElementById('search').value.toLowerCase();
+let filtered=data.filter(d=>(d.cont+d.supplier+d.goods).toLowerCase().includes(q));
+let html='';let totalCost=0,totalProfit=0;
+data.forEach(d=>{totalCost+=d.total;totalProfit+=d.profit});
+filtered.forEach((d)=>{
+let realIdx=data.indexOf(d);
+html+=`<tr><td><b>${d.cont}</b><br><small>${d.date}</small></td><td>${d.supplier}<br><small>${d.country}</small></td><td>${d.goods}<br><small>${d.qty} قطعة</small></td><td>$${d.total}</td><td>$${d.per.toFixed(2)}</td><td style="color:#22c55e"><b>$${d.profit.toFixed(2)}</b></td><td>${d.status}</td><td class="no-print"><button class="small edit" onclick="editCont(${realIdx})">✏️ تعديل</button><button class="small del" onclick="del(${realIdx})">حذف</button></td></tr>`;
+});
+document.getElementById('list').innerHTML=html||'<tr><td colspan="8">لا توجد حاويات بعد</td></tr>';
+document.getElementById('cCount').innerText=data.length;
+document.getElementById('cCost').innerText='$'+totalCost;
+document.getElementById('cProfit').innerText='$'+totalProfit.toFixed(2);
+let ch='';let totalDebt=0;
+customers.forEach((c,i)=>{totalDebt+=c.remain;ch+=`<tr><td><b>${c.name}</b></td><td>$${c.total}</td><td>$${c.paid}</td><td style="color:${c.remain>0?'#ef4444':'#22c55e'}"><b>$${c.remain}</b></td><td>${c.note}</td><td><button class="small blue" onclick="payAll(${i})">تم الدفع ✅</button><button class="small del" onclick="delCust(${i})">حذف</button></td></tr>`;});
+document.getElementById('custList').innerHTML=ch||'<tr><td colspan="6">لا يوجد زبائن بعد</td></tr>';
+document.getElementById('cDebt').innerText='$'+totalDebt;
+calcVals();
+}
+render();
+</script>
+</body>
+</html>
