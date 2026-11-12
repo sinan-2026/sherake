@@ -3,172 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>شركتي - نظام الحاويات والاستيراد</title>
+<title>سلة الخير لتجارة المواد الغذائية</title>
 <style>
-*{box-sizing:border-box}
-body{font-family:Arial;background:#0f172a;color:#fff;padding:15px;margin:0}
-.top{max-width:1050px;margin:auto}
-h1{text-align:center}
-.cards{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
-.card{background:#1e293b;flex:1;min-width:150px;padding:15px;border-radius:12px;text-align:center}
-.card b{font-size:22px;display:block;color:#22c55e}
-.card b.red{color:#ef4444}
-.box{background:#1e293b;padding:18px;border-radius:15px;margin-bottom:15px}
-input,select{width:100%;padding:11px;margin:5px 0;border-radius:8px;border:none;font-size:15px}
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#f1f5f9;color:#111}
+header{background:#166534;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:19px;line-height:1.2}
+.logo small{display:block;font-size:12px;font-weight:400;opacity:.9}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:700}
+.btn-green{background:#16a34a;color:#fff}
+.btn-dark{background:#111827;color:#fff}
+.btn-red{background:#dc2626;color:#fff}
+.btn-gray{background:#e2e8f0}
+input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;margin:6px 0;font-size:15px}
+.card{background:#fff;border-radius:16px;padding:16px;margin:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.hidden{display:none!important}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{background:#22c55e;color:#fff;padding:13px;width:100%;border:none;border-radius:10px;font-size:17px;cursor:pointer;font-weight:bold;margin-top:5px}
-button.blue{background:#0ea5e9}
-button.orange{background:#f59e0b;color:#000}
-button.small{padding:6px 10px;width:auto;font-size:13px;margin:2px}
-button.del{background:#ef4444}
-button.edit{background:#f59e0b;color:#000}
-table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:12px;overflow:hidden}
-th,td{padding:10px;text-align:center;border-bottom:1px solid #334155;font-size:14px}
-th{background:#0ea5e9}
-.search{background:#fff;color:#000}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
-@media print{body{background:#fff;color:#000} .no-print{display:none!important} .box,.card{color:#000;background:#fff;border:1px solid #000} th{background:#ddd;color:#000} td{color:#000}}
+.stat{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;text-align:center}
+.stat b{font-size:20px;display:block}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid #e2e8f0;padding:8px;text-align:right}
+.tabs{display:flex;gap:8px;padding:0 12px;flex-wrap:wrap}
+.tabs button{background:#fff;border:1px solid #cbd5e1}
+.tabs button.active{background:#166534;color:#fff}
+.login-box{max-width:420px;margin:60px auto;background:#fff;padding:24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.badge{background:#fef3c7;padding:3px 8px;border-radius:20px;font-size:12px}
+.flex{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chk{display:flex;gap:8px;align-items:center;background:#f8fafc;padding:8px;border-radius:10px;margin:4px 0}
+.chk input{width:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr} header{flex-direction:column;gap:8px;text-align:center}}
+@media print{header,.tabs,.no-print{display:none!important} .card{box-shadow:none;margin:0}}
 </style>
 </head>
 <body>
-<div class="top">
-<h1>📦 شركتي - نظام الحاويات والاستيراد</h1>
 
-<div class="cards">
-<div class="card">عدد الحاويات<b id="cCount">0</b></div>
-<div class="card">مجموع المصاريف<b id="cCost">0$</b></div>
-<div class="card">الربح المتوقع<b id="cProfit">0$</b></div>
-<div class="card">مجموع الديون على الزبائن<b class="red" id="cDebt">0$</b></div>
+<!-- LOGIN -->
+<div id="loginPage">
+<div class="login-box">
+<div style="font-size:42px">🧺</div>
+<h2 style="margin:5px 0">سلة الخير</h2>
+<p style="color:#666;margin:0">لتجارة المواد الغذائية</p>
+<p style="font-size:13px;color:#888">نظام إدارة الحاويات والزبائن - دخول آمن</p>
+<input id="loginUser" placeholder="اسم المستخدم - مثال: sinan">
+<input id="loginPass" type="password" placeholder="كلمة السر">
+<button class="btn-green" style="width:100%;margin-top:8px" onclick="login()">دخول 🔐</button>
+<p id="loginError" style="color:red;display:none">اسم المستخدم او كلمة السر غلط</p>
+<p style="font-size:12px;color:#999;margin-top:12px">المدير: sinan / sinan123456<br>غير كلمة السر بعد اول دخول من لوحة التحكم</p>
+</div>
 </div>
 
-<div class="box no-print">
-<h3 id="formTitle">➕ إضافة حاوية جديدة</h3>
+<!-- APP -->
+<div id="app" class="hidden">
+<header>
+<div class="logo">🧺 سلة الخير<small>لتجارة المواد الغذائية</small></div>
+<div class="flex">
+<span id="userInfo" class="badge"></span>
+<button class="btn-gray" onclick="logout()">خروج</button>
+</div>
+</header>
+
+<div class="tabs no-print">
+<button id="tab1" class="active" onclick="showTab('containers')">📦 الحاويات</button>
+<button id="tab2" onclick="showTab('customers')">👥 الزبائن والديون</button>
+<button id="tab3" onclick="showTab('calc')">🧮 حاسبة جديدة</button>
+<button id="tabAdmin" onclick="showTab('admin')">⚙️ لوحة تحكم الموظفين</button>
+</div>
+
+<!-- STATS -->
+<div class="card" id="statsCard">
 <div class="grid">
-<div><label>رقم الحاوية</label><input id="cont" placeholder="MSCU123456"></div>
-<div><label>اسم المورد</label><input id="supplier" placeholder="اسم الشركة"></div>
-<div><label>الدولة</label><select id="country"><option>الصين</option><option>تركيا</option><option>الهند</option><option>دبي</option><option>غيرها</option></select></div>
-<div><label>نوع البضاعة</label><input id="goods" placeholder="مثلا: ملابس"></div>
-<div><label>سعر البضاعة $</label><input id="price" type="number" value="0"></div>
-<div><label>شحن $</label><input id="ship" type="number" value="0"></div>
-<div><label>كمرك $</label><input id="custom" type="number" value="0"></div>
-<div><label>تخليص ومصاريف $</label><input id="other" type="number" value="0"></div>
-<div><label>عدد القطع</label><input id="qty" type="number" value="1"></div>
-<div><label>سعر بيع القطعة $</label><input id="sell" type="number" value="0"></div>
-<div><label>تاريخ الوصول</label><input id="date" type="date"></div>
-<div><label>حالة الحاوية</label><select id="status"><option>بالطريق 🚢</option><option>وصلت ✅</option><option>انباعت 💰</option></select></div>
+<div class="stat">عدد الحاويات<b id="sCount">0</b></div>
+<div class="stat" id="profitStat">💰 صافي الربح<b id="sProfit">0 $</b></div>
+<div class="stat">إجمالي المصاريف<b id="sCost">0 $</b></div>
+<div class="stat" id="debtStat">📌 ديون الزبائن<b id="sDebt">0 $</b></div>
 </div>
-<button id="saveBtn" onclick="saveContainer()">💾 حفظ الحاوية</button>
-<button class="blue no-print" id="cancelEdit" onclick="cancelEdit()" style="display:none">❌ الغاء التعديل</button>
-<p id="calcPreview" style="background:#0ea5e9;padding:10px;border-radius:8px;margin-top:10px">اكتب الارقام حتى تشوف الحساب هنا...</p>
-</div>
-
-<div class="box">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<h3>📋 كل الحاويات</h3>
-<button class="blue small no-print" onclick="window.print()">🖨️ طباعة التقرير</button>
-</div>
-<input class="search no-print" id="search" placeholder="🔍 ابحث برقم الحاوية او المورد..." onkeyup="render()">
-<div style="overflow-x:auto;margin-top:10px">
-<table>
-<thead><tr><th>الحاوية</th><th>المورد / الدولة</th><th>البضاعة</th><th>الكلفة الكلية</th><th>كلفة القطعة</th><th>الربح الكلي</th><th>الحالة</th><th class="no-print">اجراء</th></tr></thead>
-<tbody id="list"></tbody>
-</table>
+<div class="flex no-print" style="margin-top:10px">
+<button class="btn-dark" onclick="window.print()">🖨️ طباعة تقرير</button>
+<button class="btn-gray" onclick="exportBackup()">💾 نسخة احتياطية</button>
 </div>
 </div>
 
-<div class="box no-print">
-<h3>💰 الزبائن والديون</h3>
+<!-- CONTAINERS -->
+<div id="page-containers" class="card">
+<h3>📦 الحاويات المحفوظة</h3>
+<input id="searchBox" placeholder="🔍 بحث باسم الحاوية او الزبون..." oninput="render()">
+<div id="containerList"></div>
+</div>
+
+<!-- CUSTOMERS -->
+<div id="page-customers" class="card hidden">
+<h3>👥 الزبائن والديون</h3>
 <div class="grid">
-<div><label>اسم الزبون</label><input id="custName" placeholder="اسم الزبون"></div>
-<div><label>شكد اخذ بضاعة $ - المبلغ الكلي</label><input id="custTotal" type="number" value="0"></div>
-<div><label>شكد دفع $</label><input id="custPaid" type="number" value="0"></div>
-<div><label>ملاحظة</label><input id="custNote" placeholder="مثلا: ملابس - دفعة اولى"></div>
+<input id="custName" placeholder="اسم الزبون">
+<input id="custDebt" type="number" placeholder="المبلغ عليه $">
 </div>
-<button class="orange" onclick="addCustomer()">➕ اضافة زبون / دين</button>
-<div style="overflow-x:auto;margin-top:10px">
-<table>
-<thead><tr><th>الزبون</th><th>المبلغ الكلي</th><th>المدفوع</th><th>الباقي عليه</th><th>ملاحظة</th><th>اجراء</th></tr></thead>
-<tbody id="custList"></tbody>
-</table>
+<button class="btn-green" onclick="addCustomer()">+ اضافة زبون / دين</button>
+<div id="customerList" style="margin-top:12px"></div>
+</div>
+
+<!-- CALC -->
+<div id="page-calc" class="card hidden">
+<h3>🧮 حاسبة حاوية جديدة</h3>
+<input id="cName" placeholder="اسم الحاوية / المادة - مثال: رز 40 طن">
+<div class="grid">
+<input id="cBuy" type="number" placeholder="سعر الشراء $">
+<input id="cShip" type="number" placeholder="شحن $">
+<input id="cCustom" type="number" placeholder="گمرك $">
+<input id="cOther" type="number" placeholder="مصاريف اخرى $">
+<input id="cQty" type="number" placeholder="عدد القطع">
+<input id="cSell" type="number" placeholder="سعر بيع القطعة $">
+</div>
+<div class="card" style="background:#f0fdf4">
+<b>كلفة القطعة: <span id="outUnit">0</span> $</b><br>
+<b>الربح المتوقع: <span id="outProfit">0</span> $</b>
+</div>
+<button class="btn-green" style="width:100%" onclick="saveContainer()">💾 حفظ الحاوية</button>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="card hidden">
+<h3>⚙️ لوحة تحكم المدير - الموظفين</h3>
+<p style="font-size:13px;color:#666">هنا انت تضيف الموظفين وتتحكم بصلاحياتهم. الموظف ما يكدر يشوف هاي الصفحة.</p>
+<div class="grid">
+<input id="empName" placeholder="اسم الموظف الكامل">
+<input id="empUser" placeholder="اسم المستخدم للدخول">
+<input id="empPass" placeholder="كلمة سر الموظف">
+</div>
+<b>صلاحيات الموظف:</b>
+<label class="chk"><input type="checkbox" id="pAdd" checked> يضيف حاوية جديدة</label>
+<label class="chk"><input type="checkbox" id="pEdit"> يعدل حاوية</label>
+<label class="chk"><input type="checkbox" id="pDelete"> يحذف حاوية</label>
+<label class="chk"><input type="checkbox" id="pProfit"> يشوف الارباح</label>
+<label class="chk"><input type="checkbox" id="pDebt"> يشوف الديون والزبائن</label>
+<button class="btn-green" onclick="addEmployee()">+ اضافة موظف</button>
+<div id="empList" style="margin-top:14px"></div>
+<hr>
+<h4>🔐 تغيير كلمة سر المدير</h4>
+<input id="newManagerPass" placeholder="كلمة سر جديدة للمدير">
+<button class="btn-dark" onclick="changeManagerPass()">تغيير كلمة السر</button>
 </div>
 </div>
 
-</div>
 <script>
-let data = JSON.parse(localStorage.getItem('sherka') || '[]');
-let customers = JSON.parse(localStorage.getItem('sherka_cust') || '[]');
-let editIndex = -1;
-function calcVals(){
-let p=+document.getElementById('price').value||0;
-let s=+document.getElementById('ship').value||0;
-let c=+document.getElementById('custom').value||0;
-let o=+document.getElementById('other').value||0;
-let q=+document.getElementById('qty').value||1;
-let sell=+document.getElementById('sell').value||0;
-let total=p+s+c+o;
-let per=total/q;
-let profit=(sell-per)*q;
-document.getElementById('calcPreview').innerHTML='مجموع الكلفة: $'+total+' | كلفة القطعة: $'+per.toFixed(2)+' | الربح الكلي: $'+profit.toFixed(2);
-return {total,per,profit};
-}
-['price','ship','custom','other','qty','sell'].forEach(id=>{document.getElementById(id).addEventListener('input',calcVals)});
+let containers = JSON.parse(localStorage.getItem('salla_containers')||'[]');
+let customers = JSON.parse(localStorage.getItem('salla_customers')||'[]');
+let employees = JSON.parse(localStorage.getItem('salla_employees')||'[]');
+let managerPass = localStorage.getItem('salla_managerPass')||'sinan123456';
+let currentUser = JSON.parse(localStorage.getItem('salla_session')||'null');
 
-function saveContainer(){
-let item={cont:document.getElementById('cont').value||'بدون رقم',supplier:document.getElementById('supplier').value||'-',country:document.getElementById('country').value,goods:document.getElementById('goods').value||'-',qty:document.getElementById('qty').value,sell:document.getElementById('sell').value,date:document.getElementById('date').value||'-',status:document.getElementById('status').value,...calcVals()};
-if(editIndex>=0){data[editIndex]=item;editIndex=-1;document.getElementById('formTitle').innerText='➕ إضافة حاوية جديدة';document.getElementById('saveBtn').innerText='💾 حفظ الحاوية';document.getElementById('cancelEdit').style.display='none';alert('تم تعديل الحاوية ✅');}
-else{data.unshift(item);alert('تم حفظ الحاوية ✅');}
-localStorage.setItem('sherka',JSON.stringify(data));
-clearForm();render();
+function saveAll(){
+localStorage.setItem('salla_containers',JSON.stringify(containers));
+localStorage.setItem('salla_customers',JSON.stringify(customers));
+localStorage.setItem('salla_employees',JSON.stringify(employees));
+localStorage.setItem('salla_managerPass',managerPass);
 }
-function clearForm(){['cont','supplier','goods','price','ship','custom','other','qty','sell','date'].forEach(id=>{document.getElementById(id).value=id=='qty'?1:''});calcVals();}
-function cancelEdit(){editIndex=-1;clearForm();document.getElementById('formTitle').innerText='➕ إضافة حاوية جديدة';document.getElementById('saveBtn').innerText='💾 حفظ الحاوية';document.getElementById('cancelEdit').style.display='none';}
-function editCont(i){
-let d=data[i];editIndex=i;
-document.getElementById('cont').value=d.cont;document.getElementById('supplier').value=d.supplier;document.getElementById('country').value=d.country;document.getElementById('goods').value=d.goods;document.getElementById('date').value=d.date=='-'?'':d.date;document.getElementById('status').value=d.status;
-// نرجع الارقام الاصلية من الكلفة - نحسبها تقريبيا
-document.getElementById('qty').value=d.qty;document.getElementById('sell').value=d.sell;
-// للبساطة: نطلب من المستخدم يعيد كتابة الاسعار الاربعة اذا يريد تعديل دقيق
-document.getElementById('formTitle').innerText='✏️ تعديل حاوية: '+d.cont;
-document.getElementById('saveBtn').innerText='💾 حفظ التعديل';
-document.getElementById('cancelEdit').style.display='block';
-window.scrollTo({top:0,behavior:'smooth'});
-alert('هسه عدّل الارقام فوق ودوس حفظ التعديل. ملاحظة: عيد كتابة اسعار البضاعة والشحن والكمرك والتخليص لانها كانت محسوبة.');
-}
-function del(i){if(confirm('متأكد تحذف؟')){data.splice(i,1);localStorage.setItem('sherka',JSON.stringify(data));render();}}
-
-function addCustomer(){
-let name=document.getElementById('custName').value||'بدون اسم';
-let total=+document.getElementById('custTotal').value||0;
-let paid=+document.getElementById('custPaid').value||0;
-let note=document.getElementById('custNote').value||'-';
-customers.unshift({name,total,paid,remain:total-paid,note});
-localStorage.setItem('sherka_cust',JSON.stringify(customers));
-document.getElementById('custName').value='';document.getElementById('custTotal').value=0;document.getElementById('custPaid').value=0;document.getElementById('custNote').value='';
-render();
-}
-function delCust(i){if(confirm('تحذف هذا الزبون؟')){customers.splice(i,1);localStorage.setItem('sherka_cust',JSON.stringify(customers));render();}}
-function payAll(i){customers[i].paid=customers[i].total;customers[i].remain=0;localStorage.setItem('sherka_cust',JSON.stringify(customers));render();}
-
-function render(){
-let q=document.getElementById('search').value.toLowerCase();
-let filtered=data.filter(d=>(d.cont+d.supplier+d.goods).toLowerCase().includes(q));
-let html='';let totalCost=0,totalProfit=0;
-data.forEach(d=>{totalCost+=d.total;totalProfit+=d.profit});
-filtered.forEach((d)=>{
-let realIdx=data.indexOf(d);
-html+=`<tr><td><b>${d.cont}</b><br><small>${d.date}</small></td><td>${d.supplier}<br><small>${d.country}</small></td><td>${d.goods}<br><small>${d.qty} قطعة</small></td><td>$${d.total}</td><td>$${d.per.toFixed(2)}</td><td style="color:#22c55e"><b>$${d.profit.toFixed(2)}</b></td><td>${d.status}</td><td class="no-print"><button class="small edit" onclick="editCont(${realIdx})">✏️ تعديل</button><button class="small del" onclick="del(${realIdx})">حذف</button></td></tr>`;
-});
-document.getElementById('list').innerHTML=html||'<tr><td colspan="8">لا توجد حاويات بعد</td></tr>';
-document.getElementById('cCount').innerText=data.length;
-document.getElementById('cCost').innerText='$'+totalCost;
-document.getElementById('cProfit').innerText='$'+totalProfit.toFixed(2);
-let ch='';let totalDebt=0;
-customers.forEach((c,i)=>{totalDebt+=c.remain;ch+=`<tr><td><b>${c.name}</b></td><td>$${c.total}</td><td>$${c.paid}</td><td style="color:${c.remain>0?'#ef4444':'#22c55e'}"><b>$${c.remain}</b></td><td>${c.note}</td><td><button class="small blue" onclick="payAll(${i})">تم الدفع ✅</button><button class="small del" onclick="delCust(${i})">حذف</button></td></tr>`;});
-document.getElementById('custList').innerHTML=ch||'<tr><td colspan="6">لا يوجد زبائن بعد</td></tr>';
-document.getElementById('cDebt').innerText='$'+totalDebt;
-calcVals();
-}
-render();
-</script>
-</body>
-</html>
+function isManager(){ return currentUser && currentUser.role==='manager'; }
+function can(p){ if(isManager()) return true; return
