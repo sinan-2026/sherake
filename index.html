@@ -7,155 +7,176 @@
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#f1f5f9;color:#111}
-header{background:#166534;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;font-size:19px;line-height:1.2}
-.logo small{display:block;font-size:12px;font-weight:400;opacity:.9}
-button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;font-weight:700}
-.btn-green{background:#16a34a;color:#fff}
-.btn-dark{background:#111827;color:#fff}
-.btn-red{background:#dc2626;color:#fff}
-.btn-gray{background:#e2e8f0}
+header{background:#166534;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:19px;line-height:1.2}.logo small{display:block;font-size:12px;font-weight:400}
+button{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700}
+.btn-green{background:#16a34a;color:#fff}.btn-dark{background:#111827;color:#fff}.btn-red{background:#dc2626;color:#fff}.btn-gray{background:#e2e8f0}
 input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;margin:6px 0;font-size:15px}
 .card{background:#fff;border-radius:16px;padding:16px;margin:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.hidden{display:none!important}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;text-align:center}
-.stat b{font-size:20px;display:block}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{border-bottom:1px solid #e2e8f0;padding:8px;text-align:right}
-.tabs{display:flex;gap:8px;padding:0 12px;flex-wrap:wrap}
-.tabs button{background:#fff;border:1px solid #cbd5e1}
-.tabs button.active{background:#166534;color:#fff}
-.login-box{max-width:420px;margin:60px auto;background:#fff;padding:24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.hidden{display:none!important}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;text-align:center}.stat b{font-size:20px;display:block}
+.tabs{display:flex;gap:8px;padding:0 12px;flex-wrap:wrap}.tabs button{background:#fff;border:1px solid #cbd5e1}.tabs button.active{background:#166534;color:#fff}
+.login-box{max-width:420px;margin:50px auto;background:#fff;padding:24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
 .badge{background:#fef3c7;padding:3px 8px;border-radius:20px;font-size:12px}
 .flex{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.chk{display:flex;gap:8px;align-items:center;background:#f8fafc;padding:8px;border-radius:10px;margin:4px 0}
-.chk input{width:auto}
-@media(max-width:600px){.grid{grid-template-columns:1fr} header{flex-direction:column;gap:8px;text-align:center}}
-@media print{header,.tabs,.no-print{display:none!important} .card{box-shadow:none;margin:0}}
+.chk{display:flex;gap:8px;align-items:center;background:#f8fafc;padding:8px;border-radius:10px;margin:4px 0}.chk input{width:auto}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage">
 <div class="login-box">
 <div style="font-size:42px">🧺</div>
 <h2 style="margin:5px 0">سلة الخير</h2>
 <p style="color:#666;margin:0">لتجارة المواد الغذائية</p>
-<p style="font-size:13px;color:#888">نظام إدارة الحاويات والزبائن - دخول آمن</p>
-<input id="loginUser" placeholder="اسم المستخدم - مثال: sinan">
-<input id="loginPass" type="password" placeholder="كلمة السر">
-<button class="btn-green" style="width:100%;margin-top:8px" onclick="login()">دخول 🔐</button>
-<p id="loginError" style="color:red;display:none">اسم المستخدم او كلمة السر غلط</p>
-<p style="font-size:12px;color:#999;margin-top:12px">المدير: sinan / sinan123456<br>غير كلمة السر بعد اول دخول من لوحة التحكم</p>
+<p style="font-size:13px;color:#888">نظام إدارة الحاويات والزبائن</p>
+<input id="loginUser" placeholder="اسم المستخدم" value="sinan" autocomplete="username">
+<input id="loginPass" type="password" placeholder="كلمة السر" autocomplete="current-password">
+<button type="button" id="loginBtn" class="btn-green" style="width:100%;margin-top:8px">دخول 🔐</button>
+<p id="loginError" style="color:red;display:none">اسم المستخدم او كلمة السر غلط - جرب sinan / sinan123456</p>
+<p style="font-size:12px;color:#999;margin-top:12px">المدير: sinan / sinan123456</p>
+<button type="button" class="btn-gray" style="font-size:12px" onclick="testLogin()">اذا الزر ما يشتغل دوس هنا للفحص</button>
 </div>
 </div>
 
-<!-- APP -->
 <div id="app" class="hidden">
 <header>
 <div class="logo">🧺 سلة الخير<small>لتجارة المواد الغذائية</small></div>
-<div class="flex">
-<span id="userInfo" class="badge"></span>
-<button class="btn-gray" onclick="logout()">خروج</button>
-</div>
+<div class="flex"><span id="userInfo" class="badge"></span><button class="btn-gray" onclick="logout()">خروج</button></div>
 </header>
-
-<div class="tabs no-print">
+<div class="tabs">
 <button id="tab1" class="active" onclick="showTab('containers')">📦 الحاويات</button>
 <button id="tab2" onclick="showTab('customers')">👥 الزبائن والديون</button>
 <button id="tab3" onclick="showTab('calc')">🧮 حاسبة جديدة</button>
 <button id="tabAdmin" onclick="showTab('admin')">⚙️ لوحة تحكم الموظفين</button>
 </div>
-
-<!-- STATS -->
-<div class="card" id="statsCard">
+<div class="card">
 <div class="grid">
 <div class="stat">عدد الحاويات<b id="sCount">0</b></div>
 <div class="stat" id="profitStat">💰 صافي الربح<b id="sProfit">0 $</b></div>
 <div class="stat">إجمالي المصاريف<b id="sCost">0 $</b></div>
 <div class="stat" id="debtStat">📌 ديون الزبائن<b id="sDebt">0 $</b></div>
 </div>
-<div class="flex no-print" style="margin-top:10px">
-<button class="btn-dark" onclick="window.print()">🖨️ طباعة تقرير</button>
-<button class="btn-gray" onclick="exportBackup()">💾 نسخة احتياطية</button>
+<div class="flex" style="margin-top:10px"><button class="btn-dark" onclick="window.print()">🖨️ طباعة</button><button class="btn-gray" onclick="exportBackup()">💾 نسخة احتياطية</button></div>
 </div>
-</div>
-
-<!-- CONTAINERS -->
-<div id="page-containers" class="card">
-<h3>📦 الحاويات المحفوظة</h3>
-<input id="searchBox" placeholder="🔍 بحث باسم الحاوية او الزبون..." oninput="render()">
-<div id="containerList"></div>
-</div>
-
-<!-- CUSTOMERS -->
-<div id="page-customers" class="card hidden">
-<h3>👥 الزبائن والديون</h3>
-<div class="grid">
-<input id="custName" placeholder="اسم الزبون">
-<input id="custDebt" type="number" placeholder="المبلغ عليه $">
-</div>
-<button class="btn-green" onclick="addCustomer()">+ اضافة زبون / دين</button>
-<div id="customerList" style="margin-top:12px"></div>
-</div>
-
-<!-- CALC -->
-<div id="page-calc" class="card hidden">
-<h3>🧮 حاسبة حاوية جديدة</h3>
-<input id="cName" placeholder="اسم الحاوية / المادة - مثال: رز 40 طن">
-<div class="grid">
-<input id="cBuy" type="number" placeholder="سعر الشراء $">
-<input id="cShip" type="number" placeholder="شحن $">
-<input id="cCustom" type="number" placeholder="گمرك $">
-<input id="cOther" type="number" placeholder="مصاريف اخرى $">
-<input id="cQty" type="number" placeholder="عدد القطع">
-<input id="cSell" type="number" placeholder="سعر بيع القطعة $">
-</div>
-<div class="card" style="background:#f0fdf4">
-<b>كلفة القطعة: <span id="outUnit">0</span> $</b><br>
-<b>الربح المتوقع: <span id="outProfit">0</span> $</b>
-</div>
-<button class="btn-green" style="width:100%" onclick="saveContainer()">💾 حفظ الحاوية</button>
-</div>
-
-<!-- ADMIN -->
-<div id="page-admin" class="card hidden">
-<h3>⚙️ لوحة تحكم المدير - الموظفين</h3>
-<p style="font-size:13px;color:#666">هنا انت تضيف الموظفين وتتحكم بصلاحياتهم. الموظف ما يكدر يشوف هاي الصفحة.</p>
-<div class="grid">
-<input id="empName" placeholder="اسم الموظف الكامل">
-<input id="empUser" placeholder="اسم المستخدم للدخول">
-<input id="empPass" placeholder="كلمة سر الموظف">
-</div>
-<b>صلاحيات الموظف:</b>
-<label class="chk"><input type="checkbox" id="pAdd" checked> يضيف حاوية جديدة</label>
-<label class="chk"><input type="checkbox" id="pEdit"> يعدل حاوية</label>
-<label class="chk"><input type="checkbox" id="pDelete"> يحذف حاوية</label>
-<label class="chk"><input type="checkbox" id="pProfit"> يشوف الارباح</label>
-<label class="chk"><input type="checkbox" id="pDebt"> يشوف الديون والزبائن</label>
-<button class="btn-green" onclick="addEmployee()">+ اضافة موظف</button>
-<div id="empList" style="margin-top:14px"></div>
-<hr>
-<h4>🔐 تغيير كلمة سر المدير</h4>
-<input id="newManagerPass" placeholder="كلمة سر جديدة للمدير">
-<button class="btn-dark" onclick="changeManagerPass()">تغيير كلمة السر</button>
-</div>
+<div id="page-containers" class="card"><h3>📦 الحاويات</h3><input id="searchBox" placeholder="🔍 بحث..." oninput="render()"><div id="containerList"></div></div>
+<div id="page-customers" class="card hidden"><h3>👥 الزبائن والديون</h3><div class="grid"><input id="custName" placeholder="اسم الزبون"><input id="custDebt" type="number" placeholder="المبلغ عليه $"></div><button class="btn-green" onclick="addCustomer()">+ اضافة زبون</button><div id="customerList" style="margin-top:12px"></div></div>
+<div id="page-calc" class="card hidden"><h3>🧮 حاسبة جديدة</h3><input id="cName" placeholder="اسم الحاوية"><div class="grid"><input id="cBuy" type="number" placeholder="شراء $"><input id="cShip" type="number" placeholder="شحن $"><input id="cCustom" type="number" placeholder="گمرك $"><input id="cOther" type="number" placeholder="اخرى $"><input id="cQty" type="number" placeholder="عدد القطع"><input id="cSell" type="number" placeholder="بيع القطعة $"></div><div class="card" style="background:#f0fdf4"><b>كلفة القطعة: <span id="outUnit">0</span> $</b><br><b>الربح: <span id="outProfit">0</span> $</b></div><button class="btn-green" style="width:100%" onclick="saveContainer()">💾 حفظ الحاوية</button></div>
+<div id="page-admin" class="card hidden"><h3>⚙️ لوحة تحكم المدير</h3><div class="grid"><input id="empName" placeholder="اسم الموظف"><input id="empUser" placeholder="اسم المستخدم"><input id="empPass" placeholder="كلمة سر الموظف"></div><b>صلاحيات:</b><label class="chk"><input type="checkbox" id="pAdd" checked> يضيف حاوية</label><label class="chk"><input type="checkbox" id="pEdit"> يعدل</label><label class="chk"><input type="checkbox" id="pDelete"> يحذف</label><label class="chk"><input type="checkbox" id="pProfit"> يشوف الارباح</label><label class="chk"><input type="checkbox" id="pDebt"> يشوف الديون</label><button class="btn-green" onclick="addEmployee()">+ اضافة موظف</button><div id="empList" style="margin-top:14px"></div><hr><h4>تغيير كلمة سر المدير</h4><input id="newManagerPass" placeholder="كلمة سر جديدة"><button class="btn-dark" onclick="changeManagerPass()">تغيير</button></div>
 </div>
 
 <script>
-let containers = JSON.parse(localStorage.getItem('salla_containers')||'[]');
-let customers = JSON.parse(localStorage.getItem('salla_customers')||'[]');
-let employees = JSON.parse(localStorage.getItem('salla_employees')||'[]');
-let managerPass = localStorage.getItem('salla_managerPass')||'sinan123456';
-let currentUser = JSON.parse(localStorage.getItem('salla_session')||'null');
+var containers=[], customers=[], employees=[];
+try{ containers=JSON.parse(localStorage.getItem('salla_containers')||'[]'); }catch(e){ containers=[]; }
+try{ customers=JSON.parse(localStorage.getItem('salla_customers')||'[]'); }catch(e){ customers=[]; }
+try{ employees=JSON.parse(localStorage.getItem('salla_employees')||'[]'); }catch(e){ employees=[]; }
+var managerPass = localStorage.getItem('salla_managerPass')||'sinan123456';
+var currentUser=null;
+try{ currentUser=JSON.parse(localStorage.getItem('salla_session')||'null'); }catch(e){ currentUser=null; }
 
-function saveAll(){
-localStorage.setItem('salla_containers',JSON.stringify(containers));
-localStorage.setItem('salla_customers',JSON.stringify(customers));
-localStorage.setItem('salla_employees',JSON.stringify(employees));
-localStorage.setItem('salla_managerPass',managerPass);
-}
+function saveAll(){ localStorage.setItem('salla_containers',JSON.stringify(containers)); localStorage.setItem('salla_customers',JSON.stringify(customers)); localStorage.setItem('salla_employees',JSON.stringify(employees)); localStorage.setItem('salla_managerPass',managerPass); }
 function isManager(){ return currentUser && currentUser.role==='manager'; }
-function can(p){ if(isManager()) return true; return
+function can(p){ if(isManager()) return true; return currentUser && currentUser.perms && currentUser.perms[p]; }
+
+function testLogin(){ alert('الزر يشتغل! هسه اكتب sinan و sinan123456 ودوس دخول'); }
+
+function doLogin(){
+var u=document.getElementById('loginUser').value.trim();
+var p=document.getElementById('loginPass').value.trim();
+if(u==='sinan' && p===managerPass){
+currentUser={name:'سنان - المدير',role:'manager',user:'sinan'};
+} else {
+var emp=null;
+for(var i=0;i<employees.length;i++){ if(employees[i].user===u && employees[i].pass===p){ emp=employees[i]; break; } }
+if(!emp){ document.getElementById('loginError').style.display='block'; alert('كلمة السر غلط - تأكد: sinan / sinan123456'); return; }
+currentUser={name:emp.name,role:'employee',user:emp.user,perms:emp.perms};
+}
+localStorage.setItem('salla_session',JSON.stringify(currentUser));
+startApp();
+}
+function login(){ doLogin(); }
+function logout(){ localStorage.removeItem('salla_session'); location.reload(); }
+function startApp(){
+if(!currentUser) return;
+document.getElementById('loginPage').classList.add('hidden');
+document.getElementById('app').classList.remove('hidden');
+document.getElementById('userInfo').textContent=currentUser.name + (isManager()?' 👑 مدير':' 👤 موظف');
+if(!isManager()){
+document.getElementById('tabAdmin').style.display='none';
+if(!can('pDebt')) document.getElementById('tab2').style.display='none';
+if(!can('pProfit')) document.getElementById('profitStat').style.display='none';
+if(!can('pDebt')) document.getElementById('debtStat').style.display='none';
+if(!can('pAdd')) document.getElementById('tab3').style.display='none';
+}
+render();
+}
+function showTab(name){
+['containers','customers','calc','admin'].forEach(function(t){ document.getElementById('page-'+t).classList.add('hidden'); });
+document.getElementById('page-'+name).classList.remove('hidden');
+}
+function calcLive(){
+var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0;
+var total=buy+ship+cus+oth; var unit=qty?total/qty:0; var profit=qty?(sell*qty-total):0;
+document.getElementById('outUnit').textContent=unit.toFixed(2);
+document.getElementById('outProfit').textContent=profit.toFixed(0);
+}
+function saveContainer(){
+if(!can('pAdd')) return alert('ما عندك صلاحية');
+var name=document.getElementById('cName').value||'حاوية بدون اسم';
+var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0;
+var total=buy+ship+cus+oth;
+containers.unshift({id:Date.now(),name:name,total:total,qty:qty,sell:sell,profit:sell*qty-total,date:new Date().toLocaleDateString('ar-IQ'),by:currentUser.name});
+saveAll(); render(); showTab('containers'); alert('تم حفظ الحاوية ✅');
+}
+function deleteContainer(id){ if(!can('pDelete')) return alert('فقط المدير يحذف'); if(!confirm('متأكد؟')) return; containers=containers.filter(function(c){return c.id!==id}); saveAll(); render(); }
+function addCustomer(){
+if(!can('pDebt')) return alert('ما عندك صلاحية');
+var n=document.getElementById('custName').value, d=+document.getElementById('custDebt').value||0;
+if(!n) return alert('اكتب اسم الزبون');
+customers.unshift({id:Date.now(),name:n,debt:d}); saveAll(); render();
+document.getElementById('custName').value=''; document.getElementById('custDebt').value='';
+}
+function payDebt(id){ var amt=prompt('شكد دفع؟'); if(!amt) return; var c=null; for(var i=0;i<customers.length;i++){ if(customers[i].id===id) c=customers[i]; } c.debt=Math.max(0,c.debt - +amt); saveAll(); render(); }
+function deleteCustomer(id){ if(!isManager()) return alert('فقط المدير'); customers=customers.filter(function(c){return c.id!==id}); saveAll(); render(); }
+function addEmployee(){
+if(!isManager()) return;
+var name=document.getElementById('empName').value, user=document.getElementById('empUser').value, pass=document.getElementById('empPass').value;
+if(!name||!user||!pass) return alert('كمل معلومات الموظف');
+employees.push({name:name,user:user,pass:pass,perms:{pAdd:document.getElementById('pAdd').checked,pEdit:document.getElementById('pEdit').checked,pDelete:document.getElementById('pDelete').checked,pProfit:document.getElementById('pProfit').checked,pDebt:document.getElementById('pDebt').checked}});
+saveAll(); render(); alert('تم اضافة الموظف ✅');
+}
+function deleteEmployee(user){ employees=employees.filter(function(e){return e.user!==user}); saveAll(); render(); }
+function changeManagerPass(){ var np=document.getElementById('newManagerPass').value; if(np.length<4) return alert('قصيرة'); managerPass=np; saveAll(); alert('تم التغيير ✅ الجديدة: '+np); }
+function exportBackup(){ var data=JSON.stringify({containers:containers,customers:customers,employees:employees}); var blob=new Blob([data],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='salla-backup.json'; a.click(); }
+function render(){
+var q=(document.getElementById('searchBox')?.value||'').toLowerCase();
+var totalCost=0,totalProfit=0,totalDebt=0;
+containers.forEach(function(c){ totalCost+=c.total; totalProfit+=c.profit; });
+customers.forEach(function(c){ totalDebt+=c.debt; });
+document.getElementById('sCount').textContent=containers.length;
+document.getElementById('sProfit').textContent=totalProfit.toFixed(0)+' $';
+document.getElementById('sCost').textContent=totalCost.toFixed(0)+' $';
+document.getElementById('sDebt').textContent=totalDebt.toFixed(0)+' $';
+var list=document.getElementById('containerList');
+var html='';
+containers.forEach(function(c){ if(c.name.toLowerCase().indexOf(q)===-1) return; html+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:8px 0"><b>'+c.name+'</b><br>الكلفة: '+c.total+'$ | العدد: '+c.qty+' | '+(can('pProfit')?'الربح: '+c.profit.toFixed(0)+'$':'الربح: مخفي 🔒')+'<br>'+(can('pDelete')?'<button class="btn-red" onclick="deleteContainer('+c.id+')">حذف</button>':'<span style="font-size:12px;color:#888">الحذف للمدير فقط</span>')+'</div>'; });
+list.innerHTML=html||'<p style="color:#888">لا توجد حاويات</p>';
+var ch='';
+customers.forEach(function(c){ ch+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:6px 0;display:flex;justify-content:space-between"><b>'+c.name+'</b><span>عليه: '+c.debt+'$</span><div><button class="btn-green" onclick="payDebt('+c.id+')">دفع</button> '+(isManager()?'<button class="btn-red" onclick="deleteCustomer('+c.id+')">حذف</button>':'')+'</div></div>'; });
+document.getElementById('customerList').innerHTML=ch;
+var eh='';
+employees.forEach(function(e){ eh+='<div style="border:1px solid #e2e8f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between"><span><b>'+e.name+'</b> - '+e.user+'</span><button class="btn-red" onclick="deleteEmployee(\''+e.user+'\')">حذف</button></div>'; });
+document.getElementById('empList').innerHTML=eh||'<p style="color:#888">لا يوجد موظفين</p>';
+}
+
+// ربط الزر بطريقتين حتى يشتغل اكيد
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('loginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('loginUser').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+['cBuy','cShip','cCustom','cOther','cQty','cSell'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('input',calcLive); });
+
+if(currentUser) startApp();
+</script>
+</body>
+</html>
