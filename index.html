@@ -5,177 +5,139 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>سلة الخير لتجارة المواد الغذائية</title>
 <style>
+:root{--main:#166534}
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#f1f5f9;color:#111}
-header{background:#166534;color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:900;font-size:19px;line-height:1.2}.logo small{display:block;font-size:12px;font-weight:400}
+header{background:var(--main);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:19px;display:flex;gap:8px;align-items:center}.logo img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff}.logo small{display:block;font-size:12px;font-weight:400}
 button{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700}
-.btn-green{background:#16a34a;color:#fff}.btn-dark{background:#111827;color:#fff}.btn-red{background:#dc2626;color:#fff}.btn-gray{background:#e2e8f0}
+.btn-green{background:#16a34a;color:#fff}.btn-dark{background:#111827;color:#fff}.btn-red{background:#dc2626;color:#fff}.btn-gray{background:#e2e8f0}.btn-blue{background:#2563eb;color:#fff}.btn-wa{background:#25D366;color:#fff}.btn-orange{background:#ea580c;color:#fff}
 input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;margin:6px 0;font-size:15px}
 .card{background:#fff;border-radius:16px;padding:16px;margin:12px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .hidden{display:none!important}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;text-align:center}.stat b{font-size:20px;display:block}
-.tabs{display:flex;gap:8px;padding:0 12px;flex-wrap:wrap}.tabs button{background:#fff;border:1px solid #cbd5e1}.tabs button.active{background:#166534;color:#fff}
-.login-box{max-width:420px;margin:50px auto;background:#fff;padding:24px;border-radius:18px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-.badge{background:#fef3c7;padding:3px 8px;border-radius:20px;font-size:12px}
+.stat{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;text-align:center}.stat b{font-size:19px;display:block}
+.tabs{display:flex;gap:8px;padding:0 12px;flex-wrap:wrap}.tabs button{background:#fff;border:1px solid #cbd5e1}
+.login-box{max-width:420px;margin:40px auto;background:#fff;padding:24px;border-radius:18px;text-align:center}
+.badge{background:#fef3c7;padding:3px 8px;border-radius:20px;font-size:12px;color:#111}
 .flex{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .chk{display:flex;gap:8px;align-items:center;background:#f8fafc;padding:8px;border-radius:10px;margin:4px 0}.chk input{width:auto}
+.invoice{border:2px solid var(--main);border-radius:16px;padding:20px;background:#fff}
+.invoice-head{text-align:center;border-bottom:2px solid var(--main);padding-bottom:12px}
+.invoice-head h1{margin:0;color:var(--main)}
+.invoice table{width:100%;border-collapse:collapse;margin:12px 0}.invoice th,.invoice td{border:1px solid #ccc;padding:10px;text-align:right}.invoice th{background:var(--main);color:#fff}
+.alert{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:10px;border-radius:10px;margin:8px 0;font-size:13px}
 @media(max-width:600px){.grid{grid-template-columns:1fr}}
+@media print{body{background:#fff} header,.tabs,.no-print,.card:not(#invoiceCard){display:none!important} #invoiceCard{display:block!important} #app{display:block!important}}
 </style>
 </head>
 <body>
-
-<div id="loginPage">
-<div class="login-box">
-<div style="font-size:42px">🧺</div>
-<h2 style="margin:5px 0">سلة الخير</h2>
-<p style="color:#666;margin:0">لتجارة المواد الغذائية</p>
-<p style="font-size:13px;color:#888">نظام إدارة الحاويات والزبائن</p>
-<input id="loginUser" placeholder="اسم المستخدم" value="sinan" autocomplete="username">
-<input id="loginPass" type="password" placeholder="كلمة السر" autocomplete="current-password">
-<button type="button" id="loginBtn" class="btn-green" style="width:100%;margin-top:8px">دخول 🔐</button>
-<p id="loginError" style="color:red;display:none">اسم المستخدم او كلمة السر غلط - جرب sinan / sinan123456</p>
-<p style="font-size:12px;color:#999;margin-top:12px">المدير: sinan / sinan123456</p>
-<button type="button" class="btn-gray" style="font-size:12px" onclick="testLogin()">اذا الزر ما يشتغل دوس هنا للفحص</button>
-</div>
-</div>
-
+<div id="loginPage"><div class="login-box"><div id="loginLogo" style="font-size:42px">🧺</div><h2>سلة الخير</h2><p style="color:#666">لتجارة المواد الغذائية</p><input id="loginUser" value="sinan" placeholder="اسم المستخدم"><input id="loginPass" type="password" placeholder="كلمة السر"><button id="loginBtn" class="btn-green" style="width:100%">دخول 🔐</button><p id="loginError" style="color:red;display:none">غلط - sinan / sinan123456</p></div></div>
 <div id="app" class="hidden">
-<header>
-<div class="logo">🧺 سلة الخير<small>لتجارة المواد الغذائية</small></div>
-<div class="flex"><span id="userInfo" class="badge"></span><button class="btn-gray" onclick="logout()">خروج</button></div>
-</header>
-<div class="tabs">
-<button id="tab1" class="active" onclick="showTab('containers')">📦 الحاويات</button>
-<button id="tab2" onclick="showTab('customers')">👥 الزبائن والديون</button>
-<button id="tab3" onclick="showTab('calc')">🧮 حاسبة جديدة</button>
-<button id="tabAdmin" onclick="showTab('admin')">⚙️ لوحة تحكم الموظفين</button>
+<header class="no-print"><div class="logo"><span id="headerLogo">🧺</span><span>سلة الخير<small>لتجارة المواد الغذائية</small></span></div><div class="flex"><span id="userInfo" class="badge"></span><button class="btn-gray" onclick="logout()">خروج</button></div></header>
+<div class="tabs no-print">
+<button onclick="showTab('containers')">📦 الحاويات</button>
+<button onclick="showTab('customers')">👥 الزبائن</button>
+<button onclick="showTab('delegates')">🚚 المندوبين والموزعين</button>
+<button onclick="showTab('calc')">🧮 حاسبة جديدة</button>
+<button onclick="showTab('invoice')">📄 فاتورة + واتساب</button>
+<button onclick="showTab('report')">📊 تقرير + دولار</button>
+<button onclick="showTab('admin')">⚙️ لوحة التحكم</button>
 </div>
-<div class="card">
-<div class="grid">
-<div class="stat">عدد الحاويات<b id="sCount">0</b></div>
-<div class="stat" id="profitStat">💰 صافي الربح<b id="sProfit">0 $</b></div>
-<div class="stat">إجمالي المصاريف<b id="sCost">0 $</b></div>
-<div class="stat" id="debtStat">📌 ديون الزبائن<b id="sDebt">0 $</b></div>
-</div>
-<div class="flex" style="margin-top:10px"><button class="btn-dark" onclick="window.print()">🖨️ طباعة</button><button class="btn-gray" onclick="exportBackup()">💾 نسخة احتياطية</button></div>
-</div>
-<div id="page-containers" class="card"><h3>📦 الحاويات</h3><input id="searchBox" placeholder="🔍 بحث..." oninput="render()"><div id="containerList"></div></div>
-<div id="page-customers" class="card hidden"><h3>👥 الزبائن والديون</h3><div class="grid"><input id="custName" placeholder="اسم الزبون"><input id="custDebt" type="number" placeholder="المبلغ عليه $"></div><button class="btn-green" onclick="addCustomer()">+ اضافة زبون</button><div id="customerList" style="margin-top:12px"></div></div>
-<div id="page-calc" class="card hidden"><h3>🧮 حاسبة جديدة</h3><input id="cName" placeholder="اسم الحاوية"><div class="grid"><input id="cBuy" type="number" placeholder="شراء $"><input id="cShip" type="number" placeholder="شحن $"><input id="cCustom" type="number" placeholder="گمرك $"><input id="cOther" type="number" placeholder="اخرى $"><input id="cQty" type="number" placeholder="عدد القطع"><input id="cSell" type="number" placeholder="بيع القطعة $"></div><div class="card" style="background:#f0fdf4"><b>كلفة القطعة: <span id="outUnit">0</span> $</b><br><b>الربح: <span id="outProfit">0</span> $</b></div><button class="btn-green" style="width:100%" onclick="saveContainer()">💾 حفظ الحاوية</button></div>
-<div id="page-admin" class="card hidden"><h3>⚙️ لوحة تحكم المدير</h3><div class="grid"><input id="empName" placeholder="اسم الموظف"><input id="empUser" placeholder="اسم المستخدم"><input id="empPass" placeholder="كلمة سر الموظف"></div><b>صلاحيات:</b><label class="chk"><input type="checkbox" id="pAdd" checked> يضيف حاوية</label><label class="chk"><input type="checkbox" id="pEdit"> يعدل</label><label class="chk"><input type="checkbox" id="pDelete"> يحذف</label><label class="chk"><input type="checkbox" id="pProfit"> يشوف الارباح</label><label class="chk"><input type="checkbox" id="pDebt"> يشوف الديون</label><button class="btn-green" onclick="addEmployee()">+ اضافة موظف</button><div id="empList" style="margin-top:14px"></div><hr><h4>تغيير كلمة سر المدير</h4><input id="newManagerPass" placeholder="كلمة سر جديدة"><button class="btn-dark" onclick="changeManagerPass()">تغيير</button></div>
+<div class="card no-print"><div class="grid"><div class="stat">حاويات<b id="sCount">0</b></div><div class="stat" id="profitStat">💰 ربح<b id="sProfit">0 $</b></div><div class="stat">مصاريف<b id="sCost">0 $</b></div><div class="stat" id="debtStat">📌 ديون<b id="sDebt">0 $</b></div></div><div id="lateAlert"></div><div class="flex" style="margin-top:8px"><button class="btn-dark" onclick="window.print()">🖨️ طباعة</button><button class="btn-gray" onclick="exportBackup()">💾 نسخة احتياطية</button></div></div>
+
+<div id="page-containers" class="card no-print"><h3>📦 الحاويات والمخزون</h3><div class="grid"><input id="searchBox" placeholder="🔍 بحث..." oninput="render()"><select id="filterGov" onchange="render()"><option value="">كل المحافظات</option><option>بغداد</option><option>البصرة</option><option>نينوى - الموصل</option><option>أربيل</option><option>النجف</option><option>كربلاء</option><option>بابل</option><option>الأنبار</option><option>ديالى</option><option>كركوك</option><option>ذي قار</option><option>ميسان</option><option>المثنى</option><option>القادسية</option><option>واسط</option><option>صلاح الدين</option><option>السليمانية</option><option>دهوك</option></select></div><div id="containerList"></div></div>
+
+<div id="page-customers" class="card hidden no-print"><h3>👥 الزبائن والديون</h3><div class="grid"><input id="custName" placeholder="اسم الزبون"><input id="custDebt" type="number" placeholder="المبلغ عليه $"><input id="custPhone" placeholder="تلفون 0770..."><input id="custDate" type="date"><select id="custGov"><option value="">محافظة الزبون</option><option>بغداد</option><option>البصرة</option><option>نينوى - الموصل</option><option>أربيل</option><option>النجف</option><option>كربلاء</option><option>بابل</option><option>الأنبار</option><option>ديالى</option><option>كركوك</option><option>ذي قار</option><option>ميسان</option><option>المثنى</option><option>القادسية</option><option>واسط</option><option>صلاح الدين</option><option>السليمانية</option><option>دهوك</option></select><select id="custDelegate"><option value="">مندوب الزبون</option></select></div><button class="btn-green" onclick="addCustomer()">+ اضافة زبون</button><div id="customerList" style="margin-top:12px"></div></div>
+
+<div id="page-delegates" class="card hidden no-print"><h3>🚚 المندوبين / الموزعين</h3><div class="grid"><input id="delName" placeholder="اسم المندوب"><input id="delPhone" placeholder="تلفون المندوب 0770..."><select id="delGov"><option>بغداد</option><option>البصرة</option><option>نينوى - الموصل</option><option>أربيل</option><option>النجف</option><option>كربلاء</option><option>بابل</option><option>الأنبار</option><option>ديالى</option><option>كركوك</option><option>ذي قار</option><option>ميسان</option><option>المثنى</option><option>القادسية</option><option>واسط</option><option>صلاح الدين</option><option>السليمانية</option><option>دهوك</option></select><input id="delComm" type="number" placeholder="نسبة العمولة % - مثال 5"></div><button class="btn-orange" style="width:100%" onclick="addDelegate()">+ اضافة مندوب</button><div id="delegateList" style="margin-top:14px"></div><div class="card" style="background:#fff7ed"><b>💰 حساب عمولات المندوبين:</b><p style="font-size:13px">العمولة تنحسب تلقائياً من ربح الحاويات اللي وزعها المندوب. مثال: اذا وزع حاوية ربحها 1000$ ونسبته 5%، يستحق 50$</p><div id="delegateReport"></div></div></div>
+
+<div id="page-calc" class="card hidden no-print"><h3>🧮 حاسبة حاوية جديدة</h3><input id="cName" placeholder="اسم الحاوية"><div class="grid"><input id="cBuy" type="number" placeholder="شراء $"><input id="cShip" type="number" placeholder="شحن $"><input id="cCustom" type="number" placeholder="گمرك $"><input id="cOther" type="number" placeholder="اخرى $"><input id="cQty" type="number" placeholder="عدد القطع"><input id="cSell" type="number" placeholder="بيع القطعة $"><input id="cCar" placeholder="رقم السيارة"><input id="cDriver" placeholder="اسم السايق"><select id="cGov"><option>بغداد</option><option>البصرة</option><option>نينوى - الموصل</option><option>أربيل</option><option>النجف</option><option>كربلاء</option><option>بابل</option><option>الأنبار</option><option>ديالى</option><option>كركوك</option><option>ذي قار</option><option>ميسان</option><option>المثنى</option><option>القادسية</option><option>واسط</option><option>صلاح الدين</option><option>السليمانية</option><option>دهوك</option></select><select id="cDelegate"><option value="">اختر المندوب / الموزع</option></select></div><label style="font-size:13px">📸 صورة الحاوية</label><input id="cPhoto" type="file" accept="image/*"><div class="card" style="background:#f0fdf4"><b>كلفة القطعة: <span id="outUnit">0</span> $</b><br><b>الربح: <span id="outProfit">0</span> $</b><br><b>عمولة المندوب المتوقعة: <span id="outComm">0</span> $</b></div><button class="btn-green" style="width:100%" onclick="saveContainer()">💾 حفظ الحاوية</button></div>
+
+<div id="page-invoice" class="card hidden"><div class="no-print"><h3>📄 فاتورة + واتساب</h3><div class="grid"><input id="invCustomer" placeholder="اسم الزبون"><input id="invPhone" placeholder="تلفون واتساب"><select id="invContainer"></select></div><input id="invNote" placeholder="ملاحظة"><button class="btn-blue" onclick="makeInvoice()">✨ توليد الفاتورة</button></div><div id="invoiceCard" class="invoice" style="margin-top:14px"><div class="invoice-head"><div id="invLogo" style="font-size:36px">🧺</div><h1>سلة الخير</h1><p>لتجارة المواد الغذائية</p><p>فاتورة رسمية | المدير: سنان</p><p>رقم: <b id="invNo">INV-001</b> | التاريخ: <b id="invDate"></b></p></div><p><b>الزبون:</b> <span id="invCustOut">---</span> | <b>التلفون:</b> <span id="invPhoneOut">---</span> | <b>المحافظة:</b> <span id="invGovOut">---</span> | <b>المندوب:</b> <span id="invDelOut">---</span></p><p><b>السيارة:</b> <span id="invCarOut">---</span> | <b>السايق:</b> <span id="invDriverOut">---</span></p><table><tr><th>المادة</th><th>عدد</th><th>سعر القطعة</th><th>المجموع</th></tr><tr><td id="invItem">---</td><td id="invQty">---</td><td id="invPrice">---</td><td id="invTotal">---</td></tr></table><p><b>ملاحظة:</b> <span id="invNoteOut">---</span></p><p style="font-weight:900;font-size:18px">المجموع: <span id="invGrand">0 $</span></p><div style="display:flex;justify-content:space-between;margin-top:20px"><span>توقيع الزبون: ............</span><span>توقيع المدير: <b>سنان - سلة الخير</b> ✅</span></div><p style="text-align:center;color:#888;font-size:12px">شكراً لتعاملكم مع سلة الخير 🌾</p></div><div class="flex no-print" style="margin-top:12px"><button class="btn-dark" onclick="window.print()">🖨️ طباعة / PDF</button><button class="btn-wa" onclick="sendWhatsApp()">💬 ارسال واتساب</button></div></div>
+
+<div id="page-report" class="card hidden no-print"><h3>📊 تقرير شهري + دولار</h3><div class="grid"><div class="card" style="margin:0"><b>💵 دولار - دينار</b><input id="usdAmount" type="number" placeholder="المبلغ $"><input id="usdRate" type="number" value="1310"><button class="btn-green" onclick="convertUSD()">تحويل</button><p id="usdOut" style="font-weight:900"></p></div><div class="card" style="margin:0"><b>📅 تقرير هذا الشهر</b><p>حاويات: <b id="monthCount">0</b></p><p>ربح: <b id="monthProfit">0 $</b></p><p>ديون: <b id="monthDebt">0 $</b></p><button class="btn-dark" onclick="render()">تحديث</button></div></div><div class="card"><b>🚚 تقرير حسب المحافظة:</b><div id="govReport"></div></div></div>
+
+<div id="page-admin" class="card hidden no-print"><h3>⚙️ لوحة التحكم</h3><b>🎨 اللون:</b><div class="flex"><button class="btn-green" onclick="setColor('#166534')">اخضر</button><button style="background:#b45309;color:#fff" onclick="setColor('#b45309')">ذهبي</button><button class="btn-blue" onclick="setColor('#1e40af')">ازرق</button></div><hr><b>🖼️ شعار:</b><input id="logoFile" type="file" accept="image/*"><button class="btn-green" onclick="uploadLogo()">رفع الشعار</button><button class="btn-gray" onclick="removeLogo()">حذف الشعار</button><hr><b>👥 موظف:</b><div class="grid"><input id="empName" placeholder="اسم الموظف"><input id="empUser" placeholder="اسم المستخدم"><input id="empPass" placeholder="كلمة سر"></div><label class="chk"><input type="checkbox" id="pAdd" checked> يضيف</label><label class="chk"><input type="checkbox" id="pDelete"> يحذف</label><label class="chk"><input type="checkbox" id="pProfit"> يشوف الارباح</label><label class="chk"><input type="checkbox" id="pDebt"> يشوف الديون</label><button class="btn-green" onclick="addEmployee()">+ اضافة موظف</button><div id="empList" style="margin-top:14px"></div><hr><h4>تغيير كلمة سر المدير</h4><input id="newManagerPass" placeholder="جديدة"><button class="btn-dark" onclick="changeManagerPass()">تغيير</button></div>
 </div>
 
 <script>
-var containers=[], customers=[], employees=[];
-try{ containers=JSON.parse(localStorage.getItem('salla_containers')||'[]'); }catch(e){ containers=[]; }
-try{ customers=JSON.parse(localStorage.getItem('salla_customers')||'[]'); }catch(e){ customers=[]; }
-try{ employees=JSON.parse(localStorage.getItem('salla_employees')||'[]'); }catch(e){ employees=[]; }
-var managerPass = localStorage.getItem('salla_managerPass')||'sinan123456';
-var currentUser=null;
-try{ currentUser=JSON.parse(localStorage.getItem('salla_session')||'null'); }catch(e){ currentUser=null; }
-
-function saveAll(){ localStorage.setItem('salla_containers',JSON.stringify(containers)); localStorage.setItem('salla_customers',JSON.stringify(customers)); localStorage.setItem('salla_employees',JSON.stringify(employees)); localStorage.setItem('salla_managerPass',managerPass); }
+var containers=[],customers=[],employees=[],delegates=[];
+try{containers=JSON.parse(localStorage.getItem('salla_containers')||'[]')}catch(e){containers=[]}
+try{customers=JSON.parse(localStorage.getItem('salla_customers')||'[]')}catch(e){customers=[]}
+try{employees=JSON.parse(localStorage.getItem('salla_employees')||'[]')}catch(e){employees=[]}
+try{delegates=JSON.parse(localStorage.getItem('salla_delegates')||'[]')}catch(e){delegates=[]}
+var managerPass=localStorage.getItem('salla_managerPass')||'sinan123456';
+var logoData=localStorage.getItem('salla_logo')||'';
+var themeColor=localStorage.getItem('salla_color')||'#166534';
+var currentUser=null; try{currentUser=JSON.parse(localStorage.getItem('salla_session')||'null')}catch(e){currentUser=null}
+function applyTheme(){ document.documentElement.style.setProperty('--main',themeColor); if(logoData){ document.getElementById('headerLogo').innerHTML='<img src="'+logoData+'">'; document.getElementById('loginLogo').innerHTML='<img src="'+logoData+'" style="width:70px;height:70px;border-radius:50%;object-fit:cover">'; document.getElementById('invLogo').innerHTML='<img src="'+logoData+'" style="width:60px;height:60px;border-radius:50%;object-fit:cover">'; } }
+function setColor(c){ themeColor=c; localStorage.setItem('salla_color',c); applyTheme(); alert('تم تغيير اللون ✅'); }
+function uploadLogo(){ var f=document.getElementById('logoFile').files[0]; if(!f) return alert('اختار صورة'); var r=new FileReader(); r.onload=function(e){ logoData=e.target.result; localStorage.setItem('salla_logo',logoData); applyTheme(); alert('تم رفع الشعار ✅'); }; r.readAsDataURL(f); }
+function removeLogo(){ logoData=''; localStorage.removeItem('salla_logo'); location.reload(); }
+function saveAll(){ localStorage.setItem('salla_containers',JSON.stringify(containers)); localStorage.setItem('salla_customers',JSON.stringify(customers)); localStorage.setItem('salla_employees',JSON.stringify(employees)); localStorage.setItem('salla_delegates',JSON.stringify(delegates)); localStorage.setItem('salla_managerPass',managerPass); }
 function isManager(){ return currentUser && currentUser.role==='manager'; }
 function can(p){ if(isManager()) return true; return currentUser && currentUser.perms && currentUser.perms[p]; }
-
-function testLogin(){ alert('الزر يشتغل! هسه اكتب sinan و sinan123456 ودوس دخول'); }
-
-function doLogin(){
-var u=document.getElementById('loginUser').value.trim();
-var p=document.getElementById('loginPass').value.trim();
-if(u==='sinan' && p===managerPass){
-currentUser={name:'سنان - المدير',role:'manager',user:'sinan'};
-} else {
-var emp=null;
-for(var i=0;i<employees.length;i++){ if(employees[i].user===u && employees[i].pass===p){ emp=employees[i]; break; } }
-if(!emp){ document.getElementById('loginError').style.display='block'; alert('كلمة السر غلط - تأكد: sinan / sinan123456'); return; }
-currentUser={name:emp.name,role:'employee',user:emp.user,perms:emp.perms};
-}
-localStorage.setItem('salla_session',JSON.stringify(currentUser));
-startApp();
-}
-function login(){ doLogin(); }
+function doLogin(){ var u=document.getElementById('loginUser').value.trim(); var p=document.getElementById('loginPass').value.trim(); if(u==='sinan' && p===managerPass){ currentUser={name:'سنان - المدير',role:'manager',user:'sinan'}; } else { var emp=null; for(var i=0;i<employees.length;i++){ if(employees[i].user===u && employees[i].pass===p){emp=employees[i];break} } if(!emp){ document.getElementById('loginError').style.display='block'; return; } currentUser={name:emp.name,role:'employee',user:emp.user,perms:emp.perms}; } localStorage.setItem('salla_session',JSON.stringify(currentUser)); startApp(); }
 function logout(){ localStorage.removeItem('salla_session'); location.reload(); }
-function startApp(){
-if(!currentUser) return;
-document.getElementById('loginPage').classList.add('hidden');
-document.getElementById('app').classList.remove('hidden');
-document.getElementById('userInfo').textContent=currentUser.name + (isManager()?' 👑 مدير':' 👤 موظف');
-if(!isManager()){
-document.getElementById('tabAdmin').style.display='none';
-if(!can('pDebt')) document.getElementById('tab2').style.display='none';
-if(!can('pProfit')) document.getElementById('profitStat').style.display='none';
-if(!can('pDebt')) document.getElementById('debtStat').style.display='none';
-if(!can('pAdd')) document.getElementById('tab3').style.display='none';
-}
-render();
-}
-function showTab(name){
-['containers','customers','calc','admin'].forEach(function(t){ document.getElementById('page-'+t).classList.add('hidden'); });
-document.getElementById('page-'+name).classList.remove('hidden');
-}
-function calcLive(){
-var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0;
-var total=buy+ship+cus+oth; var unit=qty?total/qty:0; var profit=qty?(sell*qty-total):0;
-document.getElementById('outUnit').textContent=unit.toFixed(2);
-document.getElementById('outProfit').textContent=profit.toFixed(0);
-}
-function saveContainer(){
-if(!can('pAdd')) return alert('ما عندك صلاحية');
-var name=document.getElementById('cName').value||'حاوية بدون اسم';
-var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0;
-var total=buy+ship+cus+oth;
-containers.unshift({id:Date.now(),name:name,total:total,qty:qty,sell:sell,profit:sell*qty-total,date:new Date().toLocaleDateString('ar-IQ'),by:currentUser.name});
-saveAll(); render(); showTab('containers'); alert('تم حفظ الحاوية ✅');
-}
-function deleteContainer(id){ if(!can('pDelete')) return alert('فقط المدير يحذف'); if(!confirm('متأكد؟')) return; containers=containers.filter(function(c){return c.id!==id}); saveAll(); render(); }
-function addCustomer(){
-if(!can('pDebt')) return alert('ما عندك صلاحية');
-var n=document.getElementById('custName').value, d=+document.getElementById('custDebt').value||0;
-if(!n) return alert('اكتب اسم الزبون');
-customers.unshift({id:Date.now(),name:n,debt:d}); saveAll(); render();
-document.getElementById('custName').value=''; document.getElementById('custDebt').value='';
-}
-function payDebt(id){ var amt=prompt('شكد دفع؟'); if(!amt) return; var c=null; for(var i=0;i<customers.length;i++){ if(customers[i].id===id) c=customers[i]; } c.debt=Math.max(0,c.debt - +amt); saveAll(); render(); }
+function startApp(){ if(!currentUser) return; document.getElementById('loginPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userInfo').textContent=currentUser.name+(isManager()?' 👑 مدير':' 👤 موظف'); applyTheme(); render(); }
+function showTab(n){ ['containers','customers','delegates','calc','admin','invoice','report'].forEach(function(t){ document.getElementById('page-'+t).classList.add('hidden'); }); document.getElementById('page-'+n).classList.remove('hidden'); }
+function calcLive(){ var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0; var total=buy+ship+cus+oth; var profit=qty?(sell*qty-total):0; document.getElementById('outUnit').textContent=(qty?total/qty:0).toFixed(2); document.getElementById('outProfit').textContent=profit.toFixed(0); var del=document.getElementById('cDelegate').value; var comm=0; delegates.forEach(function(d){ if(d.name===del) comm=profit*d.comm/100; }); document.getElementById('outComm').textContent=comm.toFixed(0); }
+function addDelegate(){ var n=document.getElementById('delName').value, ph=document.getElementById('delPhone').value, gov=document.getElementById('delGov').value, comm=+document.getElementById('delComm').value||0; if(!n) return alert('اكتب اسم المندوب'); delegates.push({id:Date.now(),name:n,phone:ph,gov:gov,comm:comm}); saveAll(); render(); alert('تم اضافة المندوب ✅'); }
+function deleteDelegate(id){ if(!isManager()) return alert('فقط المدير'); delegates=delegates.filter(function(d){return d.id!==id}); saveAll(); render(); }
+function saveContainer(){ if(!can('pAdd')) return alert('ما عندك صلاحية'); var name=document.getElementById('cName').value||'حاوية بدون اسم'; var buy=+document.getElementById('cBuy').value||0, ship=+document.getElementById('cShip').value||0, cus=+document.getElementById('cCustom').value||0, oth=+document.getElementById('cOther').value||0, qty=+document.getElementById('cQty').value||0, sell=+document.getElementById('cSell').value||0; var total=buy+ship+cus+oth; var car=document.getElementById('cCar').value||''; var driver=document.getElementById('cDriver').value||''; var gov=document.getElementById('cGov').value; var delegate=document.getElementById('cDelegate').value; var photo=''; var f=document.getElementById('cPhoto').files[0]; var done=function(){ containers.unshift({id:Date.now(),name:name,total:total,qty:qty,remain:qty,sell:sell,profit:sell*qty-total,car:car,driver:driver,gov:gov,delegate:delegate,photo:photo,date:new Date().toLocaleDateString('ar-IQ'),month:new Date().getMonth(),year:new Date().getFullYear(),by:currentUser.name}); saveAll(); render(); showTab('containers'); alert('تم حفظ الحاوية ✅'); }; if(f){ var r=new FileReader(); r.onload=function(e){ photo=e.target.result; done(); }; r.readAsDataURL(f); } else done(); }
+function deleteContainer(id){ if(!can('pDelete')) return alert('فقط المدير'); if(!confirm('متأكد؟')) return; containers=containers.filter(function(c){return c.id!==id}); saveAll(); render(); }
+function sellOne(id){ var c=containers.find(function(x){return x.id===id}); if(!c) return; var n=prompt('شكد بعت؟','1'); if(!n) return; n=+n; if(n>c.remain) return alert('الباقي '+c.remain); c.remain-=n; saveAll(); render(); alert('تم ✅ الباقي: '+c.remain); }
+function addCustomer(){ if(!can('pDebt')) return alert('ما عندك صلاحية'); var n=document.getElementById('custName').value, d=+document.getElementById('custDebt').value||0, ph=document.getElementById('custPhone').value||'', dt=document.getElementById('custDate').value||'', gov=document.getElementById('custGov').value, del=document.getElementById('custDelegate').value; if(!n) return alert('اكتب اسم الزبون'); customers.unshift({id:Date.now(),name:n,debt:d,phone:ph,due:dt,gov:gov,delegate:del}); saveAll(); render(); }
+function payDebt(id){ var amt=prompt('شكد دفع؟'); if(!amt) return; var c=customers.find(function(x){return x.id===id}); c.debt=Math.max(0,c.debt-+amt); saveAll(); render(); }
 function deleteCustomer(id){ if(!isManager()) return alert('فقط المدير'); customers=customers.filter(function(c){return c.id!==id}); saveAll(); render(); }
-function addEmployee(){
-if(!isManager()) return;
-var name=document.getElementById('empName').value, user=document.getElementById('empUser').value, pass=document.getElementById('empPass').value;
-if(!name||!user||!pass) return alert('كمل معلومات الموظف');
-employees.push({name:name,user:user,pass:pass,perms:{pAdd:document.getElementById('pAdd').checked,pEdit:document.getElementById('pEdit').checked,pDelete:document.getElementById('pDelete').checked,pProfit:document.getElementById('pProfit').checked,pDebt:document.getElementById('pDebt').checked}});
-saveAll(); render(); alert('تم اضافة الموظف ✅');
-}
+function addEmployee(){ if(!isManager()) return; var name=document.getElementById('empName').value, user=document.getElementById('empUser').value, pass=document.getElementById('empPass').value; if(!name||!user||!pass) return alert('كمل معلومات الموظف'); employees.push({name:name,user:user,pass:pass,perms:{pAdd:document.getElementById('pAdd').checked,pDelete:document.getElementById('pDelete').checked,pProfit:document.getElementById('pProfit').checked,pDebt:document.getElementById('pDebt').checked}}); saveAll(); render(); alert('تم ✅'); }
 function deleteEmployee(user){ employees=employees.filter(function(e){return e.user!==user}); saveAll(); render(); }
-function changeManagerPass(){ var np=document.getElementById('newManagerPass').value; if(np.length<4) return alert('قصيرة'); managerPass=np; saveAll(); alert('تم التغيير ✅ الجديدة: '+np); }
-function exportBackup(){ var data=JSON.stringify({containers:containers,customers:customers,employees:employees}); var blob=new Blob([data],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='salla-backup.json'; a.click(); }
+function changeManagerPass(){ var np=document.getElementById('newManagerPass').value; if(np.length<4) return alert('قصيرة'); managerPass=np; saveAll(); alert('تم ✅: '+np); }
+function exportBackup(){ var data=JSON.stringify({containers:containers,customers:customers,employees:employees,delegates:delegates}); var blob=new Blob([data],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='salla-backup.json'; a.click(); }
+function convertUSD(){ var amt=+document.getElementById('usdAmount').value||0, rate=+document.getElementById('usdRate').value||1310; document.getElementById('usdOut').textContent=amt+' $ = '+(amt*rate).toLocaleString()+' دينار'; }
+function makeInvoice(){ var cust=document.getElementById('invCustomer').value||'زبون عام'; var phone=document.getElementById('invPhone').value||'---'; var note=document.getElementById('invNote').value||'---'; var sel=document.getElementById('invContainer'); var c=containers[sel.selectedIndex]; if(!c) return alert('ضيف حاوية اول'); document.getElementById('invNo').textContent='INV-'+c.id.toString().slice(-5); document.getElementById('invDate').textContent=new Date().toLocaleDateString('ar-IQ'); document.getElementById('invCustOut').textContent=cust; document.getElementById('invPhoneOut').textContent=phone; document.getElementById('invItem').textContent=c.name; document.getElementById('invQty').textContent=c.qty; document.getElementById('invPrice').textContent=c.sell+' $'; document.getElementById('invTotal').textContent=(c.sell*c.qty)+' $'; document.getElementById('invNoteOut').textContent=note; document.getElementById('invGrand').textContent=(c.sell*c.qty)+' $'; document.getElementById('invCarOut').textContent=c.car||'---'; document.getElementById('invDriverOut').textContent=c.driver||'---'; document.getElementById('invGovOut').textContent=c.gov||'---'; document.getElementById('invDelOut').textContent=c.delegate||'---'; alert('تم توليد الفاتورة ✅'); }
+function invoiceFor(id){ var idx=containers.findIndex(function(c){return c.id===id}); if(idx===-1) return; showTab('invoice'); document.getElementById('invContainer').selectedIndex=idx; makeInvoice(); }
+function sendWhatsApp(){ var phone=document.getElementById('invPhone').value.trim(); if(!phone) return alert('اكتب تلفون الزبون'); var ph=phone.replace(/^0/,'964'); var txt='🧺 *سلة الخير*%0Aفاتورة: '+document.getElementById('invNo').textContent+'%0Aالزبون: '+document.getElementById('invCustOut').textContent+'%0Aالمادة: '+document.getElementById('invItem').textContent+'%0Aالمجموع: '+document.getElementById('invGrand').textContent+'%0Aشكرا لتعاملكم'; window.open('https://wa.me/'+ph+'?text='+txt,'_blank'); }
 function render(){
 var q=(document.getElementById('searchBox')?.value||'').toLowerCase();
-var totalCost=0,totalProfit=0,totalDebt=0;
-containers.forEach(function(c){ totalCost+=c.total; totalProfit+=c.profit; });
+var fg=document.getElementById('filterGov').value;
+var totalCost=0,totalProfit=0,totalDebt=0,mCount=0,mProfit=0; var now=new Date();
+containers.forEach(function(c){ totalCost+=c.total; totalProfit+=c.profit; if(c.month===now.getMonth() && c.year===now.getFullYear()){ mCount++; mProfit+=c.profit; } });
 customers.forEach(function(c){ totalDebt+=c.debt; });
 document.getElementById('sCount').textContent=containers.length;
 document.getElementById('sProfit').textContent=totalProfit.toFixed(0)+' $';
 document.getElementById('sCost').textContent=totalCost.toFixed(0)+' $';
 document.getElementById('sDebt').textContent=totalDebt.toFixed(0)+' $';
-var list=document.getElementById('containerList');
-var html='';
-containers.forEach(function(c){ if(c.name.toLowerCase().indexOf(q)===-1) return; html+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:8px 0"><b>'+c.name+'</b><br>الكلفة: '+c.total+'$ | العدد: '+c.qty+' | '+(can('pProfit')?'الربح: '+c.profit.toFixed(0)+'$':'الربح: مخفي 🔒')+'<br>'+(can('pDelete')?'<button class="btn-red" onclick="deleteContainer('+c.id+')">حذف</button>':'<span style="font-size:12px;color:#888">الحذف للمدير فقط</span>')+'</div>'; });
+document.getElementById('monthCount').textContent=mCount; document.getElementById('monthProfit').textContent=mProfit.toFixed(0)+' $'; document.getElementById('monthDebt').textContent=totalDebt.toFixed(0)+' $';
+var late=customers.filter(function(c){ if(!c.due) return false; var diff=(new Date()-new Date(c.due))/(1000*60*60*24); return diff>7 && c.debt>0; });
+document.getElementById('lateAlert').innerHTML=late.length?'<div class="alert">⚠️ متأخرين: '+late.map(function(c){return c.name}).join('، ')+'</div>':'';
+var list=document.getElementById('containerList'); var html='';
+containers.forEach(function(c){ if(fg && c.gov!==fg) return; if((c.name+' '+(c.driver||'')+' '+(c.car||'')+' '+(c.delegate||'')).toLowerCase().indexOf(q)===-1) return; html+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin:8px 0"><b>'+c.name+'</b> <span style="font-size:12px">📍 '+(c.gov||'')+' | 🚚 مندوب: '+(c.delegate||'---')+' | سيارة: '+(c.car||'---')+' | سايق: '+(c.driver||'---')+'</span><br>'+(c.photo?'<img src="'+c.photo+'" style="width:100%;max-height:150px;object-fit:cover;border-radius:10px">':'')+'كلفة: '+c.total+'$ | باقي: <b>'+(c.remain!=null?c.remain:c.qty)+'</b> | '+(can('pProfit')?'ربح: '+c.profit.toFixed(0)+'$':'ربح مخفي 🔒')+'<br><button class="btn-blue" onclick="invoiceFor('+c.id+')">📄 فاتورة</button> <button class="btn-green" onclick="sellOne('+c.id+')">🛒 بيع</button> '+(can('pDelete')?'<button class="btn-red" onclick="deleteContainer('+c.id+')">حذف</button>':'')+'</div>'; });
 list.innerHTML=html||'<p style="color:#888">لا توجد حاويات</p>';
-var ch='';
-customers.forEach(function(c){ ch+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:6px 0;display:flex;justify-content:space-between"><b>'+c.name+'</b><span>عليه: '+c.debt+'$</span><div><button class="btn-green" onclick="payDebt('+c.id+')">دفع</button> '+(isManager()?'<button class="btn-red" onclick="deleteCustomer('+c.id+')">حذف</button>':'')+'</div></div>'; });
+var ch=''; customers.forEach(function(c){ ch+='<div style="border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin:6px 0;display:flex;justify-content:space-between;flex-wrap:wrap"><span><b>'+c.name+'</b> - 📍 '+(c.gov||'')+' - 🚚 '+(c.delegate||'')+' - ☎️ '+(c.phone||'')+'</span><span>عليه: '+c.debt+'$</span><div><button class="btn-green" onclick="payDebt('+c.id+')">دفع</button> '+(isManager()?'<button class="btn-red" onclick="deleteCustomer('+c.id+')">حذف</button>':'')+'</div></div>'; });
 document.getElementById('customerList').innerHTML=ch;
-var eh='';
-employees.forEach(function(e){ eh+='<div style="border:1px solid #e2e8f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between"><span><b>'+e.name+'</b> - '+e.user+'</span><button class="btn-red" onclick="deleteEmployee(\''+e.user+'\')">حذف</button></div>'; });
+var dh=''; var dr='';
+delegates.forEach(function(d){ var tot=0, cnt=0, commTotal=0; containers.forEach(function(c){ if(c.delegate===d.name){ cnt++; commTotal+=c.profit*d.comm/100; tot+=c.profit; } }); dh+='<div style="border:1px solid #e2e8f0;padding:12px;border-radius:12px;display:flex;justify-content:space-between;flex-wrap:wrap"><span><b>🚚 '+d.name+'</b> - 📍 '+d.gov+' - ☎️ '+d.phone+' - عمولة '+d.comm+'%<br><span style="font-size:13px">وزع '+cnt+' حاوية - ربحها '+tot.toFixed(0)+'$ - يستحق عمولة: <b>'+commTotal.toFixed(0)+'$</b></span></span><button class="btn-red" onclick="deleteDelegate('+d.id+')">حذف</button></div>'; dr+='<p>'+d.name+' ('+d.gov+'): <b>'+commTotal.toFixed(0)+'$</b></p>'; });
+document.getElementById('delegateList').innerHTML=dh||'<p style="color:#888">لا يوجد مندوبين - ضيف اول مندوب</p>';
+document.getElementById('delegateReport').innerHTML=dr||'لا يوجد';
+var eh=''; employees.forEach(function(e){ eh+='<div style="border:1px solid #e2e8f0;padding:10px;border-radius:10px;display:flex;justify-content:space-between"><span><b>'+e.name+'</b> - '+e.user+'</span><button class="btn-red" onclick="deleteEmployee(\''+e.user+'\')">حذف</button></div>'; });
 document.getElementById('empList').innerHTML=eh||'<p style="color:#888">لا يوجد موظفين</p>';
+var sel=document.getElementById('invContainer'); sel.innerHTML=containers.map(function(c){ return '<option>'+c.name+' - '+c.qty+' - '+c.sell+'$</option>'; }).join('');
+document.getElementById('invDate').textContent=new Date().toLocaleDateString('ar-IQ');
+// تعبئة قوائم المندوبين
+var opts=delegates.map(function(d){ return '<option>'+d.name+'</option>'; }).join('');
+document.getElementById('cDelegate').innerHTML='<option value="">اختر المندوب</option>'+opts;
+document.getElementById('custDelegate').innerHTML='<option value="">مندوب الزبون</option>'+opts;
+// تقرير محافظات
+var govs={}; containers.forEach(function(c){ if(!govs[c.gov]) govs[c.gov]={n:0,p:0}; govs[c.gov].n++; govs[c.gov].p+=c.profit; });
+var gh=''; for(var g in govs){ gh+='<p>📍 '+g+': '+govs[g].n+' حاوية - ربح '+govs[g].p.toFixed(0)+'$</p>'; }
+document.getElementById('govReport').innerHTML=gh||'لا يوجد';
 }
-
-// ربط الزر بطريقتين حتى يشتغل اكيد
 document.getElementById('loginBtn').addEventListener('click', doLogin);
 document.getElementById('loginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
-document.getElementById('loginUser').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+document.getElementById('cDelegate').addEventListener('change', calcLive);
 ['cBuy','cShip','cCustom','cOther','cQty','cSell'].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener('input',calcLive); });
-
+applyTheme();
 if(currentUser) startApp();
 </script>
 </body>
